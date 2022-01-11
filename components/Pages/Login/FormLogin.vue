@@ -13,7 +13,8 @@
     <v-col>
       <h1 class="text-h4 mb-5">{{ $t("label.login") }}</h1>
       <v-text-field
-        v-model="formModel.ic_number"
+        v-model="formModel.ic_no"
+        :error-messages="formErrors.ic_no"
         :label="$t('label.icNo')"
         filled
         dense
@@ -23,9 +24,11 @@
       <v-text-field
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         :type="showPassword ? 'text' : 'password'"
+        v-model="formModel.password"
         @click:append="showPassword = !showPassword"
         :label="$t('label.password')"
         filled
+        :error-messages="formErrors.password"
         dense
       />
 
@@ -60,22 +63,31 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "nuxt-property-decorator";
+import { Vue, Component, mixins } from "nuxt-property-decorator";
+import FormRequest from "~/mixins/FormRequest";
+
 interface LoginForm {
-  ic_number: String;
+  ic_no: String;
   password: String;
 }
 
 @Component({})
-export default class FormLogin extends Vue {
+export default class FormLogin extends mixins(FormRequest) {
   showPassword: Boolean = false;
   formModel: LoginForm = {
-    ic_number: "",
+    ic_no: "",
     password: ""
   };
 
-  onSubmit() {
-    this.$router.push(this.localePath({ name: "home" }));
+  async onSubmit() {
+    try {
+      this.clearPreviousErrors();
+
+      await this.$auth.loginWith("local", { data: this.formModel });
+      // this.$router.push(this.localePath({ name: "home" }));
+    } catch (error) {
+      this.handleFormSubmitError(error);
+    }
   }
 }
 </script>

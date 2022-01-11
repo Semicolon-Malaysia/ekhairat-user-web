@@ -27,6 +27,7 @@ export default {
     finance: "Finance",
     forgotPassword: "Forgot Password?",
     fullName: "Full Name",
+    fullNameAsPerIc: "Full Name As Per IC",
     helpCenter: "Help Center",
     home: "Home",
     icNo: "IC Number",
@@ -50,12 +51,19 @@ export default {
     termsAndCondition: "Terms and Condition",
     totalActiveMembers: "Total Active Members",
     username: "Username",
+    verifyAccount: "Verify Account",
     view: "View",
     yourAccountHasBeenCreated: "Your account has been created!"
   },
   message: {
+    bannerTitle: "Apply for Khairat membership now!",
+    bannerSubtitle: "No more physical process, everything can be done here.",
     signUpAgreeTerms: "By signing up, you agree to our",
-    plsVerifyEmail:
-      "Thank you for signing up. To complete setting up your account, please click the link that we have sent to your email. We look forward to seeing you soon!"
+    verifyEmail:
+      "We have sent a verification link to your email. Verify your email to finish signing up for EasyKhairat.",
+    verifyEmailSubtitle:
+      "Thank you for choosing EasyKhairat. To finish setting up your account, please click the verification button below.",
+    youCanApplyMembership:
+      "You can apply for Khairat membership once you have a verified account."
   }
 };

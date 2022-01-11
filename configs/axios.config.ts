@@ -1,3 +1,3 @@
 export const axios = {
-    proxy: true
-}
+  proxy: true
+};

@@ -13,6 +13,7 @@
 import { Vue, Component } from "nuxt-property-decorator";
 
 @Component({
+  auth: "guest",
   layout: "unauthenticated"
 })
 export default class PageTerms extends Vue {

@@ -1,23 +1,30 @@
 <template>
   <div class="components__formRegister">
-    <h1 class="text-h4 text-center font-weight-bold mb-5">
-      {{ formHeader }}
-    </h1>
+    <div class="form-title center-all flex-column">
+      <h1 class="text-h5 text-md-h4 text-center font-weight-bold mb-2">
+        {{ formHeader }}
+      </h1>
+      <p class="primary--text text-center text-caption text-sm-body-1 mb-5">
+        {{ formSubtitle }}
+      </p>
+    </div>
     <v-form v-if="!accountCreated">
       <v-row>
-        <v-col>
+        <v-col cols="12" md="6">
           <v-text-field
             hide-details="auto"
-            v-model="formModel.fullName"
-            :placeholder="$t('label.enterYourFullName')"
-            :label="$t('label.fullName')"
+            v-model="formModel.full_name"
+            :error-messages="formErrors.full_name"
+            :placeholder="$t('label.fullNameAsPerIc')"
+            :label="$t('label.fullNameAsPerIc')"
             dense
             filled
           />
         </v-col>
-        <v-col>
+        <v-col cols="12" md="6">
           <v-text-field
             hide-details="auto"
+            :error-messages="formErrors.username"
             :placeholder="$t('label.enterYourUsername')"
             v-model="formModel.username"
             :label="$t('label.username')"
@@ -28,20 +35,22 @@
       </v-row>
 
       <v-row>
-        <v-col>
+        <v-col cols="12" md="6">
           <v-text-field
             hide-details="auto"
+            :error-messages="formErrors.ic_no"
             :placeholder="$t('label.enterYourIcNo')"
-            v-model="formModel.icNo"
+            v-model="formModel.ic_no"
             :label="$t('label.icNo')"
             dense
             filled
           />
         </v-col>
-        <v-col>
+        <v-col cols="12" md="6">
           <v-text-field
             hide-details="auto"
-            v-model="formModel.dateOfBirth"
+            :error-messages="formErrors.date_of_birth"
+            v-model="formModel.date_of_birth"
             readonly
             :label="$t('label.dateOfBirth')"
             dense
@@ -50,9 +59,10 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col>
+        <v-col cols="12" md="6">
           <v-text-field
             hide-details="auto"
+            :error-messages="formErrors.email"
             :placeholder="$t('label.enterYourEmail')"
             v-model="formModel.email"
             :label="$t('label.email')"
@@ -60,11 +70,12 @@
             filled
           />
         </v-col>
-        <v-col>
+        <v-col cols="12" md="6">
           <v-text-field
             hide-details="auto"
+            :error-messages="formErrors.phone_no"
             :placeholder="$t('label.enterYourPhoneNo')"
-            v-model="formModel.phoneNo"
+            v-model="formModel.phone_no"
             :label="$t('label.phoneNo')"
             dense
             filled
@@ -73,10 +84,11 @@
       </v-row>
 
       <v-row>
-        <v-col>
+        <v-col cols="12" md="6">
           <v-text-field
             hide-details="auto"
             v-model="formModel.password"
+            :error-messages="formErrors.password"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :type="showPassword ? 'text' : 'password'"
             @click:append="showPassword = !showPassword"
@@ -85,10 +97,11 @@
             filled
           />
         </v-col>
-        <v-col>
+        <v-col cols="12" md="6">
           <v-text-field
             hide-details="auto"
-            v-model="formModel.confirmPassword"
+            v-model="formModel.password_confirmation"
+            :error-messages="formErrors.password_confirmation"
             :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :type="showConfirmPassword ? 'text' : 'password'"
             @click:append="showConfirmPassword = !showConfirmPassword"
@@ -102,6 +115,7 @@
       <v-btn
         @click="onSubmit"
         rounded
+        :loading="loading"
         large
         width="200"
         color="primary"
@@ -111,7 +125,7 @@
       </v-btn>
 
       <p class="text-caption text-center">
-        {{ $t("message.signUpAgreeTerms") }}
+        {{ $t("message.signUpAgreeTerms") }} <br />
         <a
           :href="
             localePath({ name: 'terms', params: { index: 'registration' } })
@@ -123,58 +137,88 @@
       </p>
     </v-form>
 
-    <v-container v-else class="center-all flex-column">
-      <p class="text-center text-subtitle-2 mb-10" style="width: 60%">
-        {{ $t("message.plsVerifyEmail") }}
-      </p>
-
-      <v-btn text :to="localePath('/')" color="primary" rounded>{{
-        $t("label.backToHome")
-      }}</v-btn>
-    </v-container>
+    <v-btn
+      v-else
+      :to="localePath('/')"
+      color="primary"
+      width="300"
+      x-large
+      class="mt-12 d-flex mx-auto"
+    >
+      {{ $t("label.home") }}
+    </v-btn>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "nuxt-property-decorator";
+import { Vue, Component, mixins } from "nuxt-property-decorator";
+import FormRequest from "~/mixins/FormRequest";
 
 interface RegisterForm {
-  fullName: String;
+  full_name: String;
   username: String;
-  icNo: String;
-  dateOfBirth: String;
-  phoneNo: String;
+  ic_no: String;
+  date_of_birth: String;
+  phone_no: String;
   email: String;
   password: String;
-  confirmPassword: String;
+  password_confirmation: String;
 }
 
 @Component({})
-export default class FormRegister extends Vue {
+export default class FormRegister extends mixins(FormRequest) {
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
+  loading: boolean = false;
   accountCreated: boolean = false;
 
   formModel: RegisterForm = {
-    fullName: "",
+    full_name: "",
     username: "",
-    icNo: "",
-    dateOfBirth: "",
-    phoneNo: "",
+    ic_no: "",
+    date_of_birth: "",
+    phone_no: "",
     email: "",
     password: "",
-    confirmPassword: ""
+    password_confirmation: ""
   };
 
   get formHeader() {
     if (this.accountCreated) return this.$t("label.yourAccountHasBeenCreated");
     else return this.$t("label.createYourAccount");
   }
-  onSubmit() {
-    this.accountCreated = true;
-    // alert("Form Submitted!");
+
+  get formSubtitle() {
+    if (this.accountCreated) return this.$t("message.verifyEmail");
+    else return this.$t("message.youCanApplyMembership");
+  }
+
+  async onSubmit() {
+    try {
+      this.loading = true;
+      this.clearPreviousErrors();
+
+      let res = await this.$api.easyKhairat.auth.register(this.formModel);
+      this.handleFormSubmitSuccess(res);
+      this.accountCreated = true;
+    } catch (error) {
+      this.handleFormSubmitError(error);
+    } finally {
+      this.loading = false;
+    }
   }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.components__formRegister {
+  .form-title {
+    word-wrap: break-word;
+
+    h1,
+    p {
+      max-width: 600px;
+    }
+  }
+}
+</style>

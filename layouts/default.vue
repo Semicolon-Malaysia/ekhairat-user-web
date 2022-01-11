@@ -1,12 +1,17 @@
 <template>
   <v-app>
     <desktop-nav-drawer />
-    <app-bar />
-    <v-main>
-      <Nuxt />
+    <!-- <app-bar  /> -->
+    <v-main class="main-container">
+      <v-container class="pa-md-10">
+        <Nuxt />
+      </v-container>
     </v-main>
-    <v-footer :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+    <v-footer :absolute="!fixed" app v-if="$vuetify.breakpoint.mdAndUp">
+      <span class="center-all full-width text-caption">
+        &copy; {{ new Date().getFullYear() }} - Easy Khairat Masjid Al-'Azim
+        Pandan Indah
+      </span>
     </v-footer>
   </v-app>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer permanent app color="primary" class="white--text">
-    <div class="center-all-inline pt-10 px-4">
+    <div class="center-all-inline pt-5 px-4">
       <v-img
         src="/header-logo.svg"
         width="100"

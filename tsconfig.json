@@ -4,6 +4,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "lib": ["ESNext", "ESNext.AsyncIterable", "DOM"],
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowJs": true,
     "sourceMap": true,
@@ -18,10 +19,13 @@
     "types": [
       "@nuxt/types",
       "@nuxtjs/axios",
+      "@nuxtjs/auth-next",
       "@types/node",
+      "@nuxtjs/toast",
       "@nuxtjs/i18n",
       "@nuxtjs/vuetify"
     ]
   },
+  "typeRoots": ["node_modules/@types", "types/module"],
   "exclude": ["node_modules", ".nuxt", "dist"]
 }

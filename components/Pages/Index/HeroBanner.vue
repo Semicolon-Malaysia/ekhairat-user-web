@@ -4,9 +4,9 @@
       <v-row>
         <v-col>
           <div class="full-size d-flex justify-center flex-column">
-            <h1>Quis nostrud exercitation <br />ullamco laboris nisi!</h1>
-            <h5 class="primary--text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            <h1 class="banner-title">{{ bannerTitle }}</h1>
+            <h5 class="banner-title primary--text">
+              {{ bannerSubtitle }}
             </h5>
 
             <div class="d-flex my-10 flex-column">
@@ -42,7 +42,15 @@
 import { Vue, Component } from "nuxt-property-decorator";
 
 @Component({})
-export default class HeroBanner extends Vue {}
+export default class HeroBanner extends Vue {
+  get bannerTitle() {
+    return this.$t("message.bannerTitle");
+  }
+
+  get bannerSubtitle() {
+    return this.$t("message.bannerSubtitle");
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -53,6 +61,11 @@ export default class HeroBanner extends Vue {}
   align-items: center;
 
   margin: 100px 0;
+
+  .banner-title {
+    max-width: 350px;
+    word-wrap: break-word;
+  }
 
   //   background: rgb(0, 145, 110);
   //   background: linear-gradient(

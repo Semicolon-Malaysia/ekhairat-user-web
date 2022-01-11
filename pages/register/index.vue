@@ -1,6 +1,6 @@
 <template>
   <div class="pages__register inner-section center-all full-size">
-    <v-card color="#eeeeee" width="100%" class="pa-8">
+    <v-card color="#eeeeee" width="100%" class="pa-md-8 pa-4">
       <form-register />
     </v-card>
 
@@ -14,6 +14,7 @@ import FormRegister from "~/components/Pages/Register/FormRegister.vue";
 import RedirectLogin from "~/components/Pages/Register/RedirectLogin.vue";
 
 @Component({
+  auth: "guest",
   layout: "unauthenticated",
   components: {
     RedirectLogin,

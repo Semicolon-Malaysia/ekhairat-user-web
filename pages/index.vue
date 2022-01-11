@@ -15,6 +15,7 @@ import ListAnnouncements from "~/components/Pages/Index/ListAnnouncements.vue";
 import ListPros from "~/components/Pages/Index/ListPros.vue";
 
 @Component({
+  auth: "guest",
   layout: "unauthenticated",
   components: {
     HeroBanner,
@@ -23,7 +24,11 @@ import ListPros from "~/components/Pages/Index/ListPros.vue";
     FooterLarge
   }
 })
-export default class PageIndex extends Vue {}
+export default class PageIndex extends Vue {
+  get isUser() {
+    return this.$auth.loggedIn;
+  }
+}
 </script>
 
 <style lang="scss" scoped></style>

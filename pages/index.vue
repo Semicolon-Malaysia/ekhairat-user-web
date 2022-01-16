@@ -28,6 +28,13 @@ export default class PageIndex extends Vue {
   get isUser() {
     return this.$auth.loggedIn;
   }
+
+  mounted() {
+    this.$nuxt.$gtag.pageview({
+      page_path: this.$route.fullPath,
+      page_title: this.$route.path
+    });
+  }
 }
 </script>
 

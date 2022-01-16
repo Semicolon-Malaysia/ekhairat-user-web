@@ -65,6 +65,7 @@
 <script lang="ts">
 import { Vue, Component, mixins } from "nuxt-property-decorator";
 import FormRequest from "~/mixins/FormRequest";
+import VueGtagPlugin from "vue-gtag";
 
 interface LoginForm {
   ic_no: String;
@@ -78,6 +79,13 @@ export default class FormLogin extends mixins(FormRequest) {
     ic_no: "",
     password: ""
   };
+
+  mounted() {
+    this.$nuxt.$gtag.pageview({
+      page_path: this.$route.fullPath,
+      page_title: this.$route.path
+    });
+  }
 
   async onSubmit() {
     try {

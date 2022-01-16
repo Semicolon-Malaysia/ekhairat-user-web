@@ -16,7 +16,7 @@
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
 import { Vue, Component } from "nuxt-property-decorator";
 import AppBar from "~/components/Layout/AppBar.vue";
 import DesktopNavDrawer from "~/components/Layout/DesktopNavDrawer.vue";
@@ -28,28 +28,25 @@ import DesktopNavDrawer from "~/components/Layout/DesktopNavDrawer.vue";
   }
 })
 export default class LayoutDefault extends Vue {
-  data() {
-    return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: "mdi-apps",
-          title: "Welcome",
-          to: "/"
-        },
-        {
-          icon: "mdi-chart-bubble",
-          title: "Inspire",
-          to: "/inspire"
-        }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: "Vuetify.js"
-    };
-  }
+  clipped: boolean = false;
+  drawer: boolean = false;
+  fixed: boolean = false;
+  items: Array<Object> = [
+    {
+      icon: "mdi-apps",
+      title: "Welcome",
+      to: "/"
+    },
+    {
+      icon: "mdi-chart-bubble",
+      title: "Inspire",
+      to: "/inspire"
+    }
+  ];
+  miniVariant: boolean = false;
+  right: boolean = true;
+  rightDrawer: boolean = false;
+
+  fn() {}
 }
 </script>

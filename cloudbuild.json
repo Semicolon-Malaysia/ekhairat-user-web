@@ -31,7 +31,7 @@
       "args": [
         "run",
         "deploy",
-        "$PROJECTID",
+        "easykhairat-user",
         "--image",
         "gcr.io/easykhairat-user/server",
         "--region",

@@ -24,7 +24,7 @@
     },
     {
       "name": "gcr.io/cloud-builders/docker",
-      "args": ["build", "-t", "gcr.io/$PROJECT_ID/server", "."]
+      "args": ["build", "-t", "gcr.io/easykhairat-user/server", "."]
     },
     {
       "name": "gcr.io/cloud-builder/gcloud",
@@ -33,7 +33,7 @@
         "deploy",
         "$PROJECTID",
         "--image",
-        "gcr.io/$PROJECT_ID/server",
+        "gcr.io/easykhairat-user/server",
         "--region",
         "asia-southeast1",
         "--platform",
@@ -42,6 +42,6 @@
     }
   ],
   "options": { "logging": "CLOUD_LOGGING_ONLY" },
-  "images": ["gcr.io/$PROJECT_ID/server"],
+  "images": ["gcr.io/easykhairat-user/server"],
   "timeout": "1200s"
 }

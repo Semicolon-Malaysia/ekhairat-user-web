@@ -1,10 +1,6 @@
 {
   "steps": [
     {
-      "name": "gcr.io/cloud-builders/docker",
-      "args": ["build", "-t", "gcr.io/easykhairat-user/dev-image", "."]
-    },
-    {
       "name": "node:14",
       "entrypoint": "npm",
       "args": ["run", "create-env"],
@@ -25,6 +21,10 @@
         "THEME_SUCCESS=${_THEME_SUCCESS}",
         "GOOGLE_ANALYTICS_ID=${_GOOGLE_ANALYTICS_ID}"
       ]
+    },
+    {
+      "name": "gcr.io/cloud-builders/docker",
+      "args": ["build", "-t", "gcr.io/easykhairat-user/dev-image", "."]
     },
     {
       "name": "gcr.io/cloud-builders/gcloud",

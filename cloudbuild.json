@@ -27,7 +27,7 @@
       "args": ["build", "-t", "gcr.io/easykhairat-user/server", "."]
     },
     {
-      "name": "gcr.io/cloud-builder/gcloud",
+      "name": "gcr.io/cloud-builders/gcloud",
       "args": [
         "run",
         "deploy",

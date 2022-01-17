@@ -1,0 +1,40 @@
+steps:
+  - name: node:14
+    entrypoint: npm
+    args: ["run", "create-env"]
+    env:
+      - "APP_NAME=${_APP_NAME}"
+      - "APP_PORT=${_APP_PORT}"
+      - "APP_URL=${_APP_URL}"
+      - "APP_HOST=${_APP_HOST}"
+      - "APP_META_DESCRIPTION=${_APP_META_DESCRIPTION}"
+      - "THEME_LOADING=${_THEME_LOADING}"
+      - "THEME_PRIMARY=${_THEME_PRIMARY}"
+      - "THEME_ACCENT=${_THEME_ACCENT}"
+      - "THEME_SECONDARY=${_THEME_SECONDARY}"
+      - "THEME_INFO=${_THEME_INFO}"
+      - "THEME_WARNING=${_THEME_WARNING}"
+      - "THEME_ERROR=${_THEME_ERROR}"
+      - "THEME_SUCCESS=${_THEME_SUCCESS}"
+      - "GOOGLE_ANALYTICS_ID=${_GOOGLE_ANALYTICS_ID}"
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "gcr.io/opt-ticket/server", "."]
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/opt-ticket/server"]
+  - name: "gcr.io/cloud-builders/gcloud"
+    args:
+      [
+        "run",
+        "deploy",
+        "opt-ticket",
+        "--image",
+        "gcr.io/opt-ticket/server",
+        "--region",
+        "asia-southeast1",
+        "--platform",
+        "managed",
+      ]
+options:
+  logging: CLOUD_LOGGING_ONLY
+images: ["gcr.io/opt-ticket/server"]
+timeout: 1200s

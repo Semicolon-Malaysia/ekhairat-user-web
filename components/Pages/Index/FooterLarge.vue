@@ -85,7 +85,7 @@ export default class FooterLarge extends Vue {
 
 <style lang="scss" scoped>
 .components__footerLarge {
-  background: #062f4f;
+  background: #000;
   display: flex;
   justify-content: center;
   align-items: center;

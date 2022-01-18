@@ -19,7 +19,7 @@
         "THEME_WARNING=${_THEME_WARNING}",
         "THEME_ERROR=${_THEME_ERROR}",
         "THEME_SUCCESS=${_THEME_SUCCESS}",
-        "GOOGLE_ANALYTICS_ID=${_GOOGLE_ANALYTICS_ID}"
+        "GOOGLE_TAG_ID=${_GOOGLE_TAG_ID}"
       ]
     },
     {

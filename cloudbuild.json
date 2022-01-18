@@ -27,6 +27,10 @@
       "args": ["build", "-t", "gcr.io/easykhairat-user/dev-image", "."]
     },
     {
+      "name": "gcr.io/cloud-builders/docker",
+      "args": ["push", "gcr.io/easykhairat-user/dev-image"]
+    },
+    {
       "name": "gcr.io/cloud-builders/gcloud",
       "args": [
         "run",

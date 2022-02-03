@@ -1,47 +1,46 @@
 <template>
   <v-app class="layout__unauthenticated">
     <app-bar />
+
     <v-main>
-      <Nuxt />
+      <nuxt keep-alive />
     </v-main>
-    <v-footer :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+
+    <v-footer
+      app
+      absolute
+      v-if="$vuetify.breakpoint.mdAndUp"
+      :color="isLandingPage ? 'primary' : 'white'"
+    >
+      <span class="center-all full-width">
+        &copy; {{ new Date().getFullYear() }} - Easy Khairat {{ masjidName }}
+      </span>
     </v-footer>
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
 import { Vue, Component } from "nuxt-property-decorator";
 import AppBar from "~/components/Layout/AppBar.vue";
+import NavBarMobile from "~/components/Layout/NavBarMobile.vue";
 
 @Component({
   components: {
-    AppBar
+    AppBar,
+    NavBarMobile
   }
 })
 export default class LayoutUnauthenticated extends Vue {
-  data() {
-    return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: "mdi-apps",
-          title: "Welcome",
-          to: "/"
-        },
-        {
-          icon: "mdi-chart-bubble",
-          title: "Inspire",
-          to: "/inspire"
-        }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: "Vuetify.js"
-    };
+  get appbar() {
+    return this.$vuetify.breakpoint.xsOnly ? "nav-bar-mobile" : "app-bar";
+  }
+
+  get isLandingPage() {
+    return this.$route.name?.includes("landing");
+  }
+
+  get masjidName() {
+    return process.env.MASJID_NAME;
   }
 }
 </script>

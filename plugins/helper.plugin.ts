@@ -1,6 +1,8 @@
 import { Plugin } from "@nuxt/types";
 import queryString from "query-string";
+import { PageView } from "vue-gtag";
 import { router } from "~/configs";
+import { Route } from "vue-router";
 
 export interface Helper {
   stringifyParams(params: any): string;
@@ -17,6 +19,7 @@ export interface Helper {
   generateArrayOfMonths(): Array<any>;
   generateArrayOfDays(month: number): Array<any>;
   parseDate(isoDate: string): String;
+  sendGtagPageview(router: Route): void;
 }
 
 declare module "vue/types/vue" {
@@ -41,7 +44,10 @@ declare module "vuex/types/index" {
   }
 }
 
-const helperPlugin: Plugin = ({ $auth, $toast, app, redirect }, inject) => {
+const helperPlugin: Plugin = (
+  { $auth, $toast, app, nuxtState, redirect },
+  inject
+) => {
   const helper: Helper = {
     stringifyParams(params: any) {
       return queryString
@@ -208,6 +214,9 @@ const helperPlugin: Plugin = ({ $auth, $toast, app, redirect }, inject) => {
       else monthName == "Dec";
 
       return `${monthName} ${day}, ${year} ${time}`;
+    },
+    sendGtagPageview(route: Route) {
+      app.gtag.pageview(route as PageView);
     }
   };
 

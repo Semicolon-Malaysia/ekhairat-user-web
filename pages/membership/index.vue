@@ -6,6 +6,7 @@
 
 <script lang="ts">
 import { Vue, Component } from "nuxt-property-decorator";
+import { PageView } from "vue-gtag";
 import TabMemberInfo from "~/components/Pages/Membership/TabMemberInfo.vue";
 
 @Component({
@@ -13,7 +14,11 @@ import TabMemberInfo from "~/components/Pages/Membership/TabMemberInfo.vue";
     TabMemberInfo
   }
 })
-export default class PageMembership extends Vue {}
+export default class PageMembership extends Vue {
+  mounted() {
+    this.$nuxt.$gtag.pageview(this.$route as PageView);
+  }
+}
 </script>
 
 <style lang="scss" scoped></style>

@@ -1,6 +1,10 @@
 <template>
-  <v-row class="components__formLogin center-all">
-    <v-col>
+  <v-row
+    class="components__formLogin full-size"
+    align="center"
+    justify="center"
+  >
+    <v-col cols="12" md="6">
       <v-img
         src="/vector-images/sign-in.svg"
         :width="$vuetify.breakpoint.xs ? '150' : '100%'"
@@ -10,7 +14,7 @@
       />
     </v-col>
 
-    <v-col>
+    <v-col cols="12" md="6">
       <h1 class="text-h4 mb-5">{{ $t("label.login") }}</h1>
       <v-text-field
         v-model="formModel.ic_no"
@@ -34,12 +38,12 @@
 
       <div class="center-all flex-column">
         <v-btn
-          outlined
           rounded
           color="primary"
           width="200"
           class="mb-3"
           @click="onSubmit"
+          :loading="loading"
         >
           {{ $t("label.login") }}
         </v-btn>
@@ -53,7 +57,7 @@
 
         <a
           :href="localePath({ name: 'register' })"
-          class="info--text text-caption text-decoration-none"
+          class="info--text text-decoration-none"
         >
           {{ $t("label.registerNow") }}
         </a>
@@ -65,7 +69,6 @@
 <script lang="ts">
 import { Vue, Component, mixins } from "nuxt-property-decorator";
 import FormRequest from "~/mixins/FormRequest";
-import VueGtagPlugin from "vue-gtag";
 
 interface LoginForm {
   ic_no: String;
@@ -75,26 +78,22 @@ interface LoginForm {
 @Component({})
 export default class FormLogin extends mixins(FormRequest) {
   showPassword: Boolean = false;
+
   formModel: LoginForm = {
     ic_no: "",
     password: ""
   };
 
-  mounted() {
-    this.$nuxt.$gtag.pageview({
-      page_path: this.$route.fullPath,
-      page_title: this.$route.path
-    });
-  }
-
   async onSubmit() {
     try {
       this.clearPreviousErrors();
+      this.loading = true;
 
       await this.$auth.loginWith("local", { data: this.formModel });
-      // this.$router.push(this.localePath({ name: "home" }));
     } catch (error) {
       this.handleFormSubmitError(error);
+    } finally {
+      this.loading = false;
     }
   }
 }

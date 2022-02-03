@@ -33,7 +33,7 @@ export default class FormRequest extends Vue {
     this.$toast.error(error);
   }
 
-  private handleRequestError(error: any): void {
+  protected handleRequestError(error: any): void {
     const {
       response: { data }
     } = error;

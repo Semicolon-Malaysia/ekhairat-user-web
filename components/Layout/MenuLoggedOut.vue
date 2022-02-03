@@ -1,29 +1,73 @@
 <template>
   <div class="components__menuLoggedOut center-all">
-    <v-list class="d-flex pa-0" flat>
-      <v-list-item
-        v-for="(item, index) in navMenu"
+    <template v-for="(item, index) in navMenu">
+      <v-btn
+        small
+        active-class="primary--text"
+        class="mr-1"
+        v-if="!item.hasChild"
+        v-text="item.title"
+        text
         :key="index"
         :to="item.link"
-        active-class="primary--text"
-      >
-        <v-list-item-title> {{ item.title }}</v-list-item-title>
-      </v-list-item>
-    </v-list>
+      />
+
+      <v-menu close-on-content-click nudge-bottom="35" v-else :key="index">
+        <template v-slot:activator="{ on }">
+          <v-btn
+            small
+            active-class="white--text"
+            color="transparent"
+            class="elevation-0"
+            v-on="on"
+            link
+          >
+            {{ item.title }}
+            <v-icon small>mdi-chevron-down</v-icon>
+          </v-btn>
+        </template>
+
+        <v-card>
+          <v-list nav dense>
+            <v-list-item
+              active-class="primary--text"
+              v-for="(child, index) in item.childMenu"
+              :key="index"
+              :to="child.link"
+            >
+              <v-list-item-title>
+                {{ child.title }}
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-card>
+      </v-menu>
+      <!-- <v-list class="d-inline-flex" flat color="transparent">
+        <v-list-item :key="index" :to="item.link" active-class="white--text">
+          <v-list-item-title> {{ item.title }}</v-list-item-title>
+        </v-list-item>
+    </v-list> -->
+    </template>
 
     <!-- <button-login-menu /> -->
     <v-btn
+      depressed
       small
       rounded
-      color="primary"
+      color="#eeeeee"
       :to="localePath({ name: 'login' })"
-      width="100"
+      width="130"
     >
       {{ $t("label.login") }}
     </v-btn>
-    <v-btn icon color="accent" class="mr-1">
-      <v-icon>mdi-web</v-icon>
-    </v-btn>
+
+    <language-switcher>
+      <template v-slot:activator="{ on }">
+        <v-btn icon color="primary" v-on="on">
+          <v-icon>mdi-translate</v-icon>
+        </v-btn>
+      </template>
+    </language-switcher>
   </div>
 </template>
 
@@ -31,10 +75,12 @@
 import { Vue, Component } from "nuxt-property-decorator";
 import ButtonLoginMenu from "../Widgets/ButtonLoginMenu.vue";
 import { Locale } from "@nuxtjs/i18n";
+import LanguageSwitcher from "../Widgets/LanguangeSwitcher.vue";
 
 @Component({
   components: {
-    ButtonLoginMenu
+    ButtonLoginMenu,
+    LanguageSwitcher
   }
 })
 export default class MenuLoggedOut extends Vue {
@@ -42,16 +88,35 @@ export default class MenuLoggedOut extends Vue {
     return [
       {
         title: this.$t("label.home"),
-        link: this.localePath({ name: "index" }),
+        hasChild: false,
+        link: this.localePath({ name: "landing" }),
         slug: "home"
       },
       {
-        title: this.$t("label.reports"),
-        link: "",
-        slug: "reports"
+        title: this.$t("label.services"),
+        hasChild: true,
+        childMenu: [
+          {
+            title: this.$t("label.eforms"),
+            link: this.localePath({ name: "claims" }),
+            slug: "reports"
+          },
+          {
+            title: this.$t("label.claims"),
+            link: this.localePath({ name: "claims" }),
+            slug: "reports"
+          },
+          {
+            title: this.$t("label.statistics"),
+            link: this.localePath({ name: "reports" }),
+            slug: "reports"
+          }
+        ],
+        slug: "services"
       },
       {
         title: this.$t("label.contactUs"),
+        hasChild: false,
         link: "",
         slug: "contact-us"
       }

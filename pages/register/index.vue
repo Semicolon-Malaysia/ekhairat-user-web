@@ -1,5 +1,5 @@
 <template>
-  <div class="pages__register inner-section center-all full-size">
+  <div class="pages__register inner-section center-all">
     <v-card color="#eeeeee" width="100%" class="pa-md-8 pa-4">
       <form-register />
     </v-card>

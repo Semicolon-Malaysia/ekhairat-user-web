@@ -1,24 +1,31 @@
 <template>
-  <div class="components__listPros inner-section">
+  <div class="components__listPros">
     <v-sheet class="list-sheet" color="#eeeeee" rounded="xl">
-      <v-row>
-        <v-col cols="12" sm="4">
-          <h2 class="primary--text">{{ $t("label.services") }}</h2>
-          <p class="text-h3 font-weight-black">
-            {{ $t("label.khairat") }} <br />
-            {{ $t("label.madeEasy") }}
-          </p>
-        </v-col>
-        <v-col cols="12" sm="8">
-          <v-row class="inner-section" justify="center">
-            <v-col v-for="(item, index) in listPros" :key="index" cols="4">
-              <v-card class="transparent" flat width="300">
-                <v-icon large color="warning darken-1" v-text="item.icon" />
-                <v-card-title>{{ item.title }}</v-card-title>
-                <v-card-text>{{ item.description }}</v-card-text>
-              </v-card>
-            </v-col>
-          </v-row>
+      <div class="pros-title">
+        <h2 class="primary--text">{{ $t("label.services") }}</h2>
+        <p class="text-h4 font-weight-black">
+          {{ $t("label.khairatMadeEasy") }}
+        </p>
+      </div>
+
+      <v-row justify="center" class="ma-0">
+        <v-col
+          class="pa-0"
+          v-for="(item, index) in listPros"
+          :key="index"
+          cols="12"
+          sm="6"
+          md="4"
+        >
+          <v-card class="transparent" flat width="300">
+            <v-icon large color="warning darken-1" v-text="item.icon" />
+
+            <p class="ml-3 mb-0 text-h6 card-title">
+              {{ item.title }}
+            </p>
+
+            <v-card-text>{{ item.description }}</v-card-text>
+          </v-card>
         </v-col>
       </v-row>
     </v-sheet>
@@ -33,19 +40,19 @@ export default class ListPros extends Vue {
   get listPros() {
     return [
       {
-        title: "Pendaftaran Ahli Baru",
+        title: this.$t("label.registerYourMembership"),
         icon: "mdi-account-plus-outline",
         description:
           "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis"
       },
       {
-        title: "Pembaharuan Keahlian",
+        title: this.$t("label.renewYourMembership"),
         icon: "mdi-update",
         description:
           "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis"
       },
       {
-        title: "Pembayaran Atas Talian",
+        title: this.$t("label.makePaymentsOnline"),
         icon: "mdi-credit-card-marker-outline",
         description:
           "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis"
@@ -78,13 +85,20 @@ export default class ListPros extends Vue {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 100px;
-  // background: #eeeeee;
+  margin-bottom: 60px;
+
+  .pros-title {
+    max-width: 400px;
+    word-wrap: break-word;
+  }
+
+  .card-title {
+    word-wrap: break-word !important;
+    max-width: 100%;
+  }
 
   .list-sheet {
-    padding: 50px;
-    display: flex;
-    justify-content: space-between;
+    padding: 24px;
   }
 }
 </style>

@@ -1,35 +1,34 @@
 <template>
-  <div class="components__footerLarge">
-    <!-- <div class="inner-section white--text" -->
-    <v-row class="inner-section white--text">
-      <v-col>
+  <div class="components__footerLarge primary">
+    <v-row class="inner-section white--text ma-0 pa-0">
+      <v-col cols="12" sm="4">
         <p class=" mb-0 text-h4">Easy</p>
         <p class="text-h4 font-weight-black">Khairat</p>
 
-        <p class="text-caption">
+        <p>
           Developed and managed by<br />
           <a
             href="http://semicolon.com.my"
             target="_blank"
-            class="text-decoration-none"
+            class="text-decoration-none black--text"
           >
             Semicolon Malaysia
           </a>
         </p>
       </v-col>
 
-      <v-col>
+      <v-col cols="12" sm="4">
         <p class="text-h6">{{ mosqueData.name }}</p>
-        <span>
+        <p>
           {{ mosqueData.address && mosqueData.address.street1 }}, <br />
           {{ mosqueData.address && mosqueData.address.street2 }}, <br />
           {{ mosqueData.address && mosqueData.address.city }}, <br />
           {{ mosqueData.address && mosqueData.address.postcode }},
           {{ mosqueData.address && mosqueData.address.state }}.
-        </span>
+        </p>
       </v-col>
 
-      <v-col>
+      <v-col cols="12" sm="4">
         <h1 class="text-h5 font-weight-bold mb-2">
           {{ $t("label.contactUs") }}
         </h1>
@@ -55,7 +54,6 @@
         </v-list>
       </v-col>
     </v-row>
-    <!-- </div> -->
   </div>
 </template>
 
@@ -85,10 +83,9 @@ export default class FooterLarge extends Vue {
 
 <style lang="scss" scoped>
 .components__footerLarge {
-  background: #000;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 50px 0;
+  padding: 50px 24px;
 }
 </style>

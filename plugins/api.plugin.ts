@@ -1,6 +1,7 @@
 import easyKhairatApi from "@/types/easyKhairatApi";
 import { Plugin } from "@nuxt/types";
 import AnnouncementsApi from "~/services/easyKhairat/AnnouncementsApi";
+import ApplicationsApi from "~/services/easyKhairat/ApplicationsApi";
 import AuthApi from "~/services/easyKhairat/AuthApi";
 import EnumApi from "~/services/easyKhairat/EnumApi";
 
@@ -32,6 +33,7 @@ const apiPlugin: Plugin = (context, inject) => {
   const api: Api = {
     easyKhairat: {
       announcements: new AnnouncementsApi($axios, $helper),
+      applicationApi: new ApplicationsApi($axios, $helper),
       auth: new AuthApi($axios),
       enum: new EnumApi($axios, $helper)
     }

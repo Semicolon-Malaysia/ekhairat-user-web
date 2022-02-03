@@ -7,6 +7,7 @@
 
 <script lang="ts">
 import { Vue, Component } from "nuxt-property-decorator";
+import { PageView } from "vue-gtag";
 import DashboardContainer from "~/components/Pages/Home/DashboardContainer.vue";
 import MessageBar from "~/components/Widgets/MessageBar.vue";
 
@@ -16,5 +17,9 @@ import MessageBar from "~/components/Widgets/MessageBar.vue";
     MessageBar
   }
 })
-export default class PageHome extends Vue {}
+export default class PageHome extends Vue {
+  mounted() {
+    this.$nuxt.$gtag.pageview(this.$route as PageView);
+  }
+}
 </script>

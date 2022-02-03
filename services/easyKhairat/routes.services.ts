@@ -22,7 +22,7 @@ export default {
     memberApplicationStatus: "/enum/member-application-status",
     relationshipStatus: "/enum/relationship-status"
   },
-  modelApplications: {
+  memberApplications: {
     getAllOrCreate: "/member-applications",
     getOneById: "/member-applications/{id}",
     updateMemberAndSpouseInfo:

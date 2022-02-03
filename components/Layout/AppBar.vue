@@ -1,19 +1,24 @@
 <template>
-  <v-app-bar class="components__appBar" color="#fff" flat fixed app>
+  <v-app-bar
+    class="components__appBar"
+    color="white"
+    :height="$vuetify.breakpoint.mdAndUp ? '100' : '70'"
+    flat
+    app
+  >
     <div class="inner-section appbar-content">
-      <div class="d-flex align-end">
-        <v-img
-          src="/header-logo.svg"
-          width="100"
-          height="30"
-          contain
-          alt="Easy Khairat"
-        />
-        <h1 class="text-subtitle-2">Masjid Al-Azim, Pandan Indah</h1>
-      </div>
-
+      <v-img
+        src="/logo.svg"
+        width="auto"
+        :height="$vuetify.breakpoint.mdAndUp ? '70' : '50'"
+        contain
+        class="ma-0"
+        position="start"
+        alt="Easy Khairat"
+      />
       <v-spacer></v-spacer>
-      <menu-logged-out v-if="$vuetify.breakpoint.smAndUp" />
+      <menu-logged-out v-if="$vuetify.breakpoint.mdAndUp" />
+      <menu-mobile v-else />
     </div>
   </v-app-bar>
 </template>
@@ -21,13 +26,19 @@
 <script lang="ts">
 import { Vue, Component } from "nuxt-property-decorator";
 import MenuLoggedOut from "./MenuLoggedOut.vue";
+import MenuMobile from "./MenuMobile.vue";
 
 @Component({
   components: {
-    MenuLoggedOut
+    MenuLoggedOut,
+    MenuMobile
   }
 })
-export default class AppBar extends Vue {}
+export default class AppBar extends Vue {
+  get masjidName() {
+    return process.env.MASJID_NAME;
+  }
+}
 </script>
 
 <style lang="scss" scoped>

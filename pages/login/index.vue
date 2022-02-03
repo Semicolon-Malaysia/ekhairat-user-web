@@ -1,11 +1,12 @@
 <template>
-  <div class="pages__login inner-section full-size center-all">
+  <div class="pages__login inner-section center-all">
     <form-login />
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from "nuxt-property-decorator";
+import { PageView } from "vue-gtag";
 import FormLogin from "~/components/Pages/Login/FormLogin.vue";
 
 @Component({
@@ -14,5 +15,9 @@ import FormLogin from "~/components/Pages/Login/FormLogin.vue";
     FormLogin
   }
 })
-export default class PageLogin extends Vue {}
+export default class PageLogin extends Vue {
+  mounted() {
+    this.$nuxt.$gtag.pageview(this.$route as PageView);
+  }
+}
 </script>

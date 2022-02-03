@@ -4,15 +4,20 @@
     <!-- <app-bar  /> -->
     <v-main class="main-container">
       <v-container class="pa-md-10">
-        <Nuxt />
+        <nuxt keep-alive />
       </v-container>
     </v-main>
-    <v-footer :absolute="!fixed" app v-if="$vuetify.breakpoint.mdAndUp">
-      <span class="center-all full-width text-caption">
+    <!-- <v-footer
+      color="transparent"
+      absolute
+      app
+      v-if="$vuetify.breakpoint.mdAndUp"
+    >
+      <span class="center-all full-width">
         &copy; {{ new Date().getFullYear() }} - Easy Khairat Masjid Al-'Azim
         Pandan Indah
       </span>
-    </v-footer>
+    </v-footer> -->
   </v-app>
 </template>
 
@@ -28,9 +33,6 @@ import DesktopNavDrawer from "~/components/Layout/DesktopNavDrawer.vue";
   }
 })
 export default class LayoutDefault extends Vue {
-  clipped: boolean = false;
-  drawer: boolean = false;
-  fixed: boolean = false;
   items: Array<Object> = [
     {
       icon: "mdi-apps",
@@ -43,10 +45,5 @@ export default class LayoutDefault extends Vue {
       to: "/inspire"
     }
   ];
-  miniVariant: boolean = false;
-  right: boolean = true;
-  rightDrawer: boolean = false;
-
-  fn() {}
 }
 </script>

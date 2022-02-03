@@ -30,7 +30,7 @@ export const auth = {
   },
   redirect: {
     login: "/login",
-    logout: "/",
+    logout: "/landing",
     home: "/home"
   },
   plugins: [
